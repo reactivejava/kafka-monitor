@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kafka Monitor - Topics</title>
+</head>
+<body>
+<div>
+    <h2>Topic List</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Partitions</th>
+            <th>Replication factor</th>
+        </tr>
+        <tr th:each="topic : ${topics}">
+            <td th:text="${topic.name}"></td>
+            <td th:text="${topic.partitions}"></td>
+            <td th:text="${topic.replicationFactor}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
