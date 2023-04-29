@@ -3,9 +3,9 @@ package io.dope.kafka.monitor.service;
 import io.dope.kafka.monitor.model.Topic;
 import io.dope.kafka.monitor.util.Utils;
 import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.CreateTopicsResult;
-import org.apache.kafka.clients.admin.DeleteTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.common.acl.AclBinding;
+import org.apache.kafka.common.acl.AclBindingFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,7 @@ public class KafkaClient {
     private static final Logger LOG = LoggerFactory.getLogger(TopicService.class);
     private AdminClient adminClient;
 
-    public Set<Topic> getTopics() {
+    public Set<Topic> listTopics() {
         Set<Topic> result = new HashSet<>();
         try {
             adminClient = Utils.adminClient();
@@ -40,8 +40,7 @@ public class KafkaClient {
     public void createTopic(NewTopic topic) {
         try {
             adminClient = Utils.adminClient();
-            CreateTopicsResult topicsResult = adminClient.createTopics(Collections.singleton(topic));
-            topicsResult.all().get(5, TimeUnit.SECONDS);
+            adminClient.createTopics(Collections.singleton(topic)).all().get(5, TimeUnit.SECONDS);
         } catch (Exception e) {
             LOG.error("ERROR: {}", e.getMessage());
         } finally {
@@ -52,12 +51,27 @@ public class KafkaClient {
     public void deleteTopic(String topic) {
         try {
             adminClient = Utils.adminClient();
-            DeleteTopicsResult topicsResult = adminClient.deleteTopics(Collections.singletonList(topic));
-            topicsResult.all().get(5, TimeUnit.SECONDS);
+            adminClient.deleteTopics(Collections.singletonList(topic)).all().get(5, TimeUnit.SECONDS);;
         } catch (Exception e) {
             LOG.error("ERROR: {}", e.getMessage());
         } finally {
             adminClient.close();
         }
+    }
+
+    public Collection<AclBinding> listAcls() {
+        Collection<AclBinding> aclBindings;
+        try {
+            adminClient = Utils.adminClient();
+            aclBindings = adminClient.describeAcls(AclBindingFilter.ANY).values().get(5, TimeUnit.SECONDS);
+
+            return aclBindings;
+        } catch (Exception e) {
+            LOG.error("ERROR: {}", e.getMessage());
+        } finally {
+            adminClient.close();
+        }
+
+        return null;
     }
 }
