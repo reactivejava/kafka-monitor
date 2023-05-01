@@ -1,16 +1,19 @@
 package io.dope.kafka.monitor.controller;
 
+import io.dope.kafka.monitor.model.Topic;
 import io.dope.kafka.monitor.service.TopicService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/topics")
+@Slf4j
 public class TopicController {
 
     @Autowired
@@ -25,17 +28,16 @@ public class TopicController {
 
     @GetMapping("/create")
     public String createTopicForm(Model model) {
-        return "createTopic";
+        model.addAttribute("topic", new Topic());
+        return "create-topic";
     }
 
     @PostMapping("/create")
-    public String createTopic(
-            @RequestParam("name") String name,
-            @RequestParam("partition") int partition,
-            @RequestParam("factor") int factor,
-            Model model
-    ) {
-        service.createTopic(name, partition, factor);
+    public String createTopic(@ModelAttribute Topic topic, Model model) {
+        log.info("Create topic[name={}, partitions={}, factor={}]",
+                topic.getName(), topic.getPartitions(), topic.getReplicationFactor());
+        service.createTopic(topic.getName(), topic.getPartitions(), topic.getReplicationFactor());
+        model.addAttribute("topic", topic);
         return "redirect:/topics";
     }
 }
