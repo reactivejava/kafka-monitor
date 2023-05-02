@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/topics")
@@ -34,9 +36,16 @@ public class TopicController {
 
     @PostMapping("/create")
     public String createTopic(@ModelAttribute Topic topic, Model model) {
-        log.info("Create topic[name={}, partitions={}, factor={}]",
-                topic.getName(), topic.getPartitions(), topic.getReplicationFactor());
+        log.info("Create topic[name={}, partitions={}, factor={}]", topic.getName(), topic.getPartitions(), topic.getReplicationFactor());
         service.createTopic(topic.getName(), topic.getPartitions(), topic.getReplicationFactor());
+        model.addAttribute("topic", topic);
+        return "redirect:/topics";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteTopic(@RequestParam(name = "topic") String topic, Model model) {
+        log.info("Delete topic[name={}]", topic);
+        service.deleteTopic(topic);
         model.addAttribute("topic", topic);
         return "redirect:/topics";
     }

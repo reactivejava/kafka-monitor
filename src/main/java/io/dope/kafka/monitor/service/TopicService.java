@@ -17,4 +17,8 @@ public class TopicService {
     public void createTopic(String name, int partition, int factor) {
         kafkaClient.createTopic(new NewTopic(name, partition, (short) factor));
     }
+
+    public void deleteTopic(String topic) {
+        kafkaClient.deleteTopic(topic);
+    }
 }

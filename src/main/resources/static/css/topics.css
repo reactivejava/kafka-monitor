@@ -1,0 +1,102 @@
+.news-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.news-list li {
+  margin-bottom: 20px;
+  border-bottom: 1px dotted #ccc;
+  padding-bottom: 20px;
+}
+
+.news-list h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.news-list p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.news-list a {
+  color: #0080ff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.news-list a:hover {
+  text-decoration: underline;
+}
+
+.topic-list {
+  font-size: 30px;
+}
+
+#alltopics {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#alltopics td, #alltopics th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#alltopics tr:nth-child(even){background-color: #f2f2f2;}
+
+#alltopics tr:hover {
+  background-color: #ddd;
+}
+
+#alltopics th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  color: white;
+}

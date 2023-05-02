@@ -3,30 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Kafka Monitor - Topics</title>
+    <link th:href="@{/css/topics.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
 </head>
 <body>
-<div>
-    <h2>Topic List</h2>
-    <table class="table table-striped">
+<ul>
+    <li><a class="active" href="/">Home</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">About</a></li>
+</ul>
+<div class="topic-list">
+    <table id="alltopics">
         <tr>
             <th>Name</th>
             <th>Partitions</th>
             <th>Replication factor</th>
+            <th>Action</th>
         </tr>
         <tr th:each="topic : ${topics}">
             <td th:text="${topic.name}"></td>
             <td th:text="${topic.partitions}"></td>
             <td th:text="${topic.replicationFactor}"></td>
+            <td>
+                <form method="POST" th:action="@{/topics/delete(topic=${topic.name})}">
+                    <button type="submit">Delete</button>
+                </form> 
+            </td>
         </tr>
     </table>
 </div>
 <br>
-
-<!--<form th:action="@{/topics/create}" method="get">-->
-<!--    <button type="button">Create topic</button>-->
-<!--</form>-->
-
-<a href="create-topic.html" th:href="@{/topics/create}">Create topic</a>
-
+<br>
+<section class="buttons">
+    <div>
+        <a href="/topics/create" class="button">Create topic</a>
+    </div>
+</section>
 </body>
 </html>
