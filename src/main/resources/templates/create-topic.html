@@ -3,28 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Kafka Monitor - Create topic</title>
+    <link th:href="@{/css/topics.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
 </head>
 <body>
-<!--<form th:action="@{/topics/create}" method="post">-->
-<!--    <label for="name">Name:</label>-->
-<!--    <input type="text" id="name"/><br>-->
-
-<!--    <label for="partition">Partition:</label>-->
-<!--    <input type="text" id="partition"/><br>-->
-
-<!--    <label for="factor">Replication factor:</label>-->
-<!--    <input type="text" id="factor"/><br>-->
-
-<!--    <button type="submit">Create</button>-->
-<!--</form>-->
-
+<ul>
+    <li><a class="active" href="/">Home</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">About</a></li>
+</ul>
 <form action="#" th:action="@{/topics/create}" th:object="${topic}" method="post">
     <p>Name: <input type="text" th:field="*{name}" /></p>
     <p>Partitions: <input type="text" th:field="*{partitions}" /></p>
     <p>Replication factor: <input type="text" th:field="*{replicationFactor}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
-
-
 </body>
 </html>

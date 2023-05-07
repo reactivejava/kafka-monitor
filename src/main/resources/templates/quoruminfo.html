@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kafka Monitor - Quorum Info</title>
+</head>
+<body>
+<ul>
+    <li><a class="active" href="/">Home</a></li>
+    <li><a href="/topics">Topics</a></li>
+    <li><a href="/consumers">Consumers</a></li>
+    <li><a href="/producers">Producers</a></li>
+</ul>
+    Info: <p th:text="${info}"/>
+</body>
+</html>

@@ -1,11 +1,11 @@
-package io.dope.kafka.monitor.model;
+package io.dope.kafka.monitor.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Broker {
+public class BrokerDTO {
     private final int brokerId;
     private final String host;
 }

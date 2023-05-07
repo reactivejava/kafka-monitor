@@ -1,6 +1,6 @@
 package io.dope.kafka.monitor.controller;
 
-import io.dope.kafka.monitor.model.Cluster;
+import io.dope.kafka.monitor.dto.ClusterDTO;
 import io.dope.kafka.monitor.service.ClusterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +17,17 @@ public class ClusterController {
 
     @GetMapping
     public String info(Model model) {
-        Cluster info = service.getClusterInfo();
+        ClusterDTO info = service.clusterInfo();
 
         model.addAttribute("clusterId", info.getClusterId());
         model.addAttribute("controllerNode", info.getControllerNode());
 
         return "cluster";
+    }
+
+    @GetMapping("/quorum")
+    public String quorumInfo(Model model) {
+        model.addAttribute("info", service.quorumInfo());
+        return "quoruminfo";
     }
 }
